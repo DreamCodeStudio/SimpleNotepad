@@ -1,0 +1,78 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Quelldateien">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Headerdateien">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Ressourcendateien">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Headerdateien\Core">
+      <UniqueIdentifier>{d109dda3-1ed6-4fa6-b121-e55dfe07b6c4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Quelldateien\Core">
+      <UniqueIdentifier>{f21c03b8-8642-4f75-a375-2bdbea4bb4d4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headerdateien\Tab">
+      <UniqueIdentifier>{86ab8805-c4c1-4a1a-9a71-9b681445aa40}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Quelldateien\Tab">
+      <UniqueIdentifier>{4f13f05f-9047-438e-824c-8f669266643e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headerdateien\TabManager">
+      <UniqueIdentifier>{26e56d23-e6ac-41df-88bb-c4c4c27f8dd9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Quelldateien\TabManager">
+      <UniqueIdentifier>{d29907e2-f1d7-4907-a703-2ee564261002}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Quelldateien\GUI">
+      <UniqueIdentifier>{41f816a2-2185-4c5d-afac-fdc1c9121f33}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headerdateien\GUI">
+      <UniqueIdentifier>{8cebce38-736f-4eb2-9517-6445d47cd695}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headerdateien\GUI\Button">
+      <UniqueIdentifier>{5675e0a4-118d-4f96-b4e2-722d46e1062e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Quelldateien\GUI\Button">
+      <UniqueIdentifier>{417b739e-12a7-490f-84c7-c867e873cfbc}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="code\main.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="code\Core\Core.cpp">
+      <Filter>Quelldateien\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="code\Tab\Tab.cpp">
+      <Filter>Quelldateien\Tab</Filter>
+    </ClCompile>
+    <ClCompile Include="code\TabManager\TabManager.cpp">
+      <Filter>Quelldateien\TabManager</Filter>
+    </ClCompile>
+    <ClCompile Include="code\GUI\Button\Button.cpp">
+      <Filter>Quelldateien\GUI\Button</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="code\Core\Core.h">
+      <Filter>Headerdateien\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="code\Tab\Tab.h">
+      <Filter>Headerdateien\Tab</Filter>
+    </ClInclude>
+    <ClInclude Include="code\TabManager\TabManager.h">
+      <Filter>Headerdateien\TabManager</Filter>
+    </ClInclude>
+    <ClInclude Include="code\GUI\Button\Button.h">
+      <Filter>Headerdateien\GUI\Button</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
