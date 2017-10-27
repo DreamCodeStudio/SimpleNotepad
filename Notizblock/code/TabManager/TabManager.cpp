@@ -39,7 +39,7 @@ void TabManager::Update()
 	_CreateButton.Update();
 
 	/* If the Create button was pressed */
-	if (_CreateButton.IsPressed())
+	if (_CreateButton.IsPressed() && _OpenTabs.size() < 8) //Max. 8 tabs open
 	{
 		this->CreateNewTab();
 	}
@@ -61,6 +61,21 @@ void TabManager::Render()
 	_CreateButton.Render();
 }
 
+void TabManager::Resize()
+{
+	float ScaleFactor = _MainWindow->getSize().x / 1920.0f;
+
+	/* Scale the tab buttons */
+	for (unsigned int c = 0; c < _OpenTabs.size(); c++)
+	{
+		_Buttons[c]->SetScale(sf::Vector2f(ScaleFactor, ScaleFactor));
+		_Buttons[c]->SetPosition(sf::Vector2f(200.0f * ScaleFactor * c, static_cast<float>(_MainWindow->getSize().y - 70 * ScaleFactor)));
+	}
+
+	_CreateButton.SetScale(sf::Vector2f(ScaleFactor, ScaleFactor));
+	_CreateButton.SetPosition(sf::Vector2f(_MainWindow->getSize().x - 200.0f * ScaleFactor, static_cast<float>(_MainWindow->getSize().y - 70 * ScaleFactor)));
+}
+
 void TabManager::CreateNewTab()
 {
 	/* Set all other tabs invisible */
@@ -80,4 +95,5 @@ void TabManager::CreateNewTab()
 	_ActiveTabIndex = static_cast<int>(_OpenTabs.size() - 1);
 
 	_XPosition += 200;
+	this->Resize(); //Check if the new tab button should be resized
 }

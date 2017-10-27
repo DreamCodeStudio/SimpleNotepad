@@ -28,8 +28,7 @@ void Button::Create(sf::RenderWindow *window, int Number, sf::Vector2f Position)
 	_NumberText.setCharacterSize(20);
 	_NumberText.setColor(sf::Color(50, 50, 50));
 
-	_BackgroundSprite.setPosition(Position);
-	_NumberText.setPosition(sf::Vector2f(_BackgroundSprite.getPosition().x + ((_BackgroundSprite.getGlobalBounds().width - _NumberText.getGlobalBounds().width) / 2), _BackgroundSprite.getPosition().y + ((_BackgroundSprite.getGlobalBounds().height - _NumberText.getGlobalBounds().height) / 2)));
+	this->SetPosition(Position);
 }
 
 void Button::Update()
@@ -66,5 +65,23 @@ void Button::Render()
 
 bool Button::IsPressed()
 {
-	return _IsPressed;
+	if (_IsPressed == true)
+	{
+		_IsPressed = false;
+		return true;
+	}
+
+	return false;
+}
+
+void Button::SetPosition(sf::Vector2f NewPosition)
+{
+	_BackgroundSprite.setPosition(NewPosition);
+	_NumberText.setPosition(sf::Vector2f(_BackgroundSprite.getPosition().x + ((_BackgroundSprite.getGlobalBounds().width - _NumberText.getGlobalBounds().width) / 2), _BackgroundSprite.getPosition().y + ((_BackgroundSprite.getGlobalBounds().height - _NumberText.getGlobalBounds().height) / 2)));
+}
+
+void Button::SetScale(sf::Vector2f NewScale)
+{
+	_BackgroundSprite.setScale(NewScale);
+	_NumberText.setScale(NewScale);
 }

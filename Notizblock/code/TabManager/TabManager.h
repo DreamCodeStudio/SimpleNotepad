@@ -13,6 +13,8 @@ class TabManager
 		void Update();
 		void Render();
 
+		void Resize();
+
 	private:
 
 		void CreateNewTab();

@@ -34,7 +34,8 @@ void Core::HandleEvents()
 		if (event.type == sf::Event::Resized)
 		{
 			/* If the window gets resized */
-			_MainWindow.setView(sf::View(sf::FloatRect(static_cast<float>(1920 - event.size.width), static_cast<float>(1080 - event.size.height), static_cast<float>(event.size.width), static_cast<float>(event.size.height))));
+			_MainWindow.setView(sf::View(sf::FloatRect(0, 0, static_cast<float>(event.size.width), static_cast<float>(event.size.height))));
+			_TabManager.Resize();
 		}
 	}
 }

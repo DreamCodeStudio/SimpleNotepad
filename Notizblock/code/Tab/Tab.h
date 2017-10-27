@@ -19,7 +19,8 @@ class Tab
 		bool _IsVisible;
 		bool _IsDrawing;
 
-		sf::RectangleShape _Background;
+		sf::Texture _BackgroundTexture;
+		sf::Sprite _BackgroundSprite;
 
 		float _Radius;
 		sf::Color _Color;

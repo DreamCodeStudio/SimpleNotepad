@@ -1,7 +1,6 @@
-﻿  Tab.cpp
-  TabManager.cpp
-  main.cpp
+﻿  Core.cpp
   Button.cpp
-  Core.cpp
-  Code wird generiert...
+  main.cpp
+  TabManager.cpp
+  Tab.cpp
   Notizblock.vcxproj -> C:\Users\micha\Desktop\Notizblock\Debug\Notizblock.exe

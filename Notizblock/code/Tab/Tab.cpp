@@ -13,8 +13,8 @@ void Tab::Create(sf::RenderWindow *window)
 	_Color = sf::Color(0, 0, 0);
 
 	/* Set a white rectangle as background */
-	_Background.setSize(sf::Vector2f(1920, 1080));
-	_Background.setFillColor(sf::Color(255, 255, 255));
+	_BackgroundTexture.loadFromFile("Data\\Background.png");
+	_BackgroundSprite.setTexture(_BackgroundTexture);
 }
 
 void Tab::SetVisibility(bool NewStatus)
@@ -66,7 +66,7 @@ void Tab::Render()
 	}
 
 	/* Render Background */
-	_MainWindow->draw(_Background);
+	_MainWindow->draw(_BackgroundSprite);
 
 	/* Draw the whole vector to the screen */
 	for (unsigned int c = 0; c < _DrawingStack.size(); c++)

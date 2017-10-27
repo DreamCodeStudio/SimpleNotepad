@@ -15,6 +15,9 @@ class Button
 
 		bool IsPressed();
 
+		void SetPosition(sf::Vector2f NewPosition);
+		void SetScale(sf::Vector2f NewScale);
+
 	private:
 
 		sf::RenderWindow *_MainWindow;
