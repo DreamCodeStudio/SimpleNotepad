@@ -22,6 +22,7 @@ class Tab
 
 		bool _IsVisible;
 		bool _IsDrawing;
+		bool _IsWriting;
 
 		sf::Texture _BackgroundTexture;
 		sf::Sprite _BackgroundSprite;
@@ -35,7 +36,7 @@ class Tab
 		sf::Clock _UndoCooldown;
 
 		/* Textbox */
-		Textbox _Textbox;
+		std::vector<Textbox*> _Textboxes;
 
 
 };

@@ -2,7 +2,7 @@
 
 Core::Core()
 {
-	_MainWindow.create(sf::VideoMode(1920, 1080), "Notizblock");
+	_MainWindow.create(sf::VideoMode(1420, 580), "Notizblock");
 
 	_TabManager.Create(&_MainWindow);
 }

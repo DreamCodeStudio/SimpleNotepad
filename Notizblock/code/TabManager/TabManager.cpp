@@ -11,6 +11,7 @@ void TabManager::Create(sf::RenderWindow *window)
 	this->CreateNewTab();
 
 	_CreateButton.Create(_MainWindow, -1, sf::Vector2f(1700, 950));
+	this->OnResizeEvent();	//If the window is not opened with 1920x1080 resolution
 
 	_ActiveTabIndex = 0;
 }

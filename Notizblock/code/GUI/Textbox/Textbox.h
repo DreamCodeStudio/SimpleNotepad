@@ -7,7 +7,7 @@ class Textbox
 {
 	public:
 
-		void Create(sf::RenderWindow *window);
+		void Create(sf::RenderWindow *window, sf::Vector2f StartPosition);
 
 		void Render();
 		void OnTextEntered(char Input);
@@ -21,5 +21,7 @@ class Textbox
 		std::string _TextStr;
 		std::vector<sf::Text*> _Text;
 		sf::Font _Font;
+
+		float _StartX, _StartY;
 
 };
