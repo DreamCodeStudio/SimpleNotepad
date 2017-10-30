@@ -10,6 +10,7 @@ void TabManager::Create(sf::RenderWindow *window)
 	/* Create the first Tab */
 	this->CreateNewTab();
 
+	/* Create CreateButton */
 	_CreateButton.Create(_MainWindow, -1, sf::Vector2f(1700, 950));
 	this->OnResizeEvent();	//If the window is not opened with 1920x1080 resolution
 
@@ -75,6 +76,8 @@ void TabManager::OnResizeEvent()
 
 	_CreateButton.SetScale(sf::Vector2f(ScaleFactor, ScaleFactor));
 	_CreateButton.SetPosition(sf::Vector2f(_MainWindow->getSize().x - 200.0f * ScaleFactor, static_cast<float>(_MainWindow->getSize().y - 70 * ScaleFactor)));
+
+	_OpenTabs[_ActiveTabIndex]->OnResizeEvent(); //The Sidebar (which is owned by the Tab class) must rescale too
 }
 
 void TabManager::OnTextEnteredEvent(char Input)

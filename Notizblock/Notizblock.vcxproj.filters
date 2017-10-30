@@ -49,6 +49,18 @@
     <Filter Include="Quelldateien\GUI\Textbox">
       <UniqueIdentifier>{9881b26d-06cf-40d0-b5e9-8276ac0044a4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Headerdateien\GUI\Sidebar">
+      <UniqueIdentifier>{0bedfdaa-72d7-4645-8dac-d5a1f941824e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Quelldateien\GUI\Sidebar">
+      <UniqueIdentifier>{3fc3703b-11b9-42e3-b07b-8b6aa0dd7d89}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headerdateien\GUI\Sidebar\Element">
+      <UniqueIdentifier>{398341ad-b09b-4e41-bc11-864ecaffbe5f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Quelldateien\GUI\Sidebar\Element">
+      <UniqueIdentifier>{8ec3ce6f-f7be-4b93-b4bd-57d25f411b79}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="code\main.cpp">
@@ -69,6 +81,12 @@
     <ClCompile Include="code\GUI\Textbox\Textbox.cpp">
       <Filter>Quelldateien\GUI\Textbox</Filter>
     </ClCompile>
+    <ClCompile Include="code\GUI\Sidebar\Sidebar.cpp">
+      <Filter>Quelldateien\GUI\Sidebar</Filter>
+    </ClCompile>
+    <ClCompile Include="code\GUI\Sidebar\Element\Element.cpp">
+      <Filter>Quelldateien\GUI\Sidebar\Element</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="code\Core\Core.h">
@@ -85,6 +103,12 @@
     </ClInclude>
     <ClInclude Include="code\GUI\Textbox\Textbox.h">
       <Filter>Headerdateien\GUI\Textbox</Filter>
+    </ClInclude>
+    <ClInclude Include="code\GUI\Sidebar\Sidebar.h">
+      <Filter>Headerdateien\GUI\Sidebar</Filter>
+    </ClInclude>
+    <ClInclude Include="code\GUI\Sidebar\Element\Element.h">
+      <Filter>Headerdateien\GUI\Sidebar\Element</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

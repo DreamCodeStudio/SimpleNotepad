@@ -14,8 +14,11 @@ void Tab::Create(sf::RenderWindow *window)
 	_Color = sf::Color(0, 0, 0);
 
 	/* Set a white rectangle as background */
-	_BackgroundTexture.loadFromFile("Data\\Background.png");
+	_BackgroundTexture.loadFromFile("Data\\Textures\\Background.png");
 	_BackgroundSprite.setTexture(_BackgroundTexture);
+
+	/* Create Sidebar */
+	_Sidebar.Create(_MainWindow);
 }
 
 void Tab::SetVisibility(bool NewStatus)
@@ -104,6 +107,15 @@ void Tab::Render()
 	{
 		_Textboxes[c]->Render();
 	}
+
+	/* Render sidebar */
+	_Sidebar.Render();
+}
+
+void Tab::OnResizeEvent()
+{
+	float Factor = _MainWindow->getSize().y / 1080.0f;
+	_Sidebar.SetScale(sf::Vector2f(Factor, Factor));
 }
 
 void Tab::OnTextEnteredEvent(char Input)

@@ -2,6 +2,7 @@
 #include <SFML\Graphics.hpp>
 
 #include "..\GUI\Textbox\Textbox.h"
+#include "..\..\GUI\Sidebar\Sidebar.h"
 
 class Tab
 {
@@ -14,6 +15,7 @@ class Tab
 
 		void SetVisibility(bool NewStatus);
 
+		void OnResizeEvent();
 		void OnTextEnteredEvent(char Input);
 
 	private:
@@ -38,5 +40,7 @@ class Tab
 		/* Textbox */
 		std::vector<Textbox*> _Textboxes;
 
+		/* Sidebar */
+		Sidebar _Sidebar;
 
 };

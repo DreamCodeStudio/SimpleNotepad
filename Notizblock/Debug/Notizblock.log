@@ -1,5 +1,7 @@
 ﻿  Core.cpp
   Button.cpp
+  Element.cpp
+  Sidebar.cpp
   Textbox.cpp
   main.cpp
   TabManager.cpp

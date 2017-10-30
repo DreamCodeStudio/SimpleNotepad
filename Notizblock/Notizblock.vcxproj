@@ -120,6 +120,8 @@
   <ItemGroup>
     <ClCompile Include="code\Core\Core.cpp" />
     <ClCompile Include="code\GUI\Button\Button.cpp" />
+    <ClCompile Include="code\GUI\Sidebar\Element\Element.cpp" />
+    <ClCompile Include="code\GUI\Sidebar\Sidebar.cpp" />
     <ClCompile Include="code\GUI\Textbox\Textbox.cpp" />
     <ClCompile Include="code\main.cpp" />
     <ClCompile Include="code\TabManager\TabManager.cpp" />
@@ -128,6 +130,8 @@
   <ItemGroup>
     <ClInclude Include="code\Core\Core.h" />
     <ClInclude Include="code\GUI\Button\Button.h" />
+    <ClInclude Include="code\GUI\Sidebar\Element\Element.h" />
+    <ClInclude Include="code\GUI\Sidebar\Sidebar.h" />
     <ClInclude Include="code\GUI\Textbox\Textbox.h" />
     <ClInclude Include="code\TabManager\TabManager.h" />
     <ClInclude Include="code\Tab\Tab.h" />

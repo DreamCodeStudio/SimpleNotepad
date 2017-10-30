@@ -6,7 +6,7 @@ void Textbox::Create(sf::RenderWindow *window, sf::Vector2f StartPosition)
 	_MainWindow = window;
 
 	/* Load font */
-	_Font.loadFromFile("Data\\arial.ttf");
+	_Font.loadFromFile("Data\\Fonts\\arial.ttf");
 
 	/* Set start values */
 	_StartX = StartPosition.x;

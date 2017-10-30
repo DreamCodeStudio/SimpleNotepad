@@ -6,11 +6,11 @@ void Button::Create(sf::RenderWindow *window, int Number, sf::Vector2f Position)
 	_MainWindow = window;
 	
 	/* Load the background image of the button */
-	_BackgroundTexture.loadFromFile("Data\\ButtonBackground.png");
+	_BackgroundTexture.loadFromFile("Data\\Textures\\ButtonBackground.png");
 	_BackgroundSprite.setTexture(_BackgroundTexture);
 
 	/* Load the font */
-	_Font.loadFromFile("Data\\arial.ttf");
+	_Font.loadFromFile("Data\\Fonts\\arial.ttf");
 
 	/* Convert int to string and set the string as output text */
 	std::string StrNumber;
