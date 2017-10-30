@@ -13,7 +13,8 @@ class TabManager
 		void Update();
 		void Render();
 
-		void Resize();
+		void OnResizeEvent();
+		void OnTextEnteredEvent(char Input);
 
 	private:
 

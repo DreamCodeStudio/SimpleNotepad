@@ -35,7 +35,12 @@ void Core::HandleEvents()
 		{
 			/* If the window gets resized */
 			_MainWindow.setView(sf::View(sf::FloatRect(0, 0, static_cast<float>(event.size.width), static_cast<float>(event.size.height))));
-			_TabManager.Resize();
+			_TabManager.OnResizeEvent();
+		}
+		if (event.type == sf::Event::TextEntered)
+		{
+			/* Core receives Input -> TabManager -> Active Tab -> Textbox */
+			_TabManager.OnTextEnteredEvent(event.text.unicode);
 		}
 	}
 }

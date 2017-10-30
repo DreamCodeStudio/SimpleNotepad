@@ -15,6 +15,9 @@ void Tab::Create(sf::RenderWindow *window)
 	/* Set a white rectangle as background */
 	_BackgroundTexture.loadFromFile("Data\\Background.png");
 	_BackgroundSprite.setTexture(_BackgroundTexture);
+
+	/* Create Textbox */
+	_Textbox.Create(_MainWindow);
 }
 
 void Tab::SetVisibility(bool NewStatus)
@@ -82,4 +85,12 @@ void Tab::Render()
 	{
 		_MainWindow->draw(*_CurrentDrawing[c]);
 	}
+
+	/* Render the text */
+	_Textbox.Render();
+}
+
+void Tab::OnTextEnteredEvent(char Input)
+{
+	_Textbox.OnTextEntered(Input);
 }

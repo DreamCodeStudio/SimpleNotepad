@@ -61,7 +61,7 @@ void TabManager::Render()
 	_CreateButton.Render();
 }
 
-void TabManager::Resize()
+void TabManager::OnResizeEvent()
 {
 	float ScaleFactor = _MainWindow->getSize().x / 1920.0f;
 
@@ -74,6 +74,11 @@ void TabManager::Resize()
 
 	_CreateButton.SetScale(sf::Vector2f(ScaleFactor, ScaleFactor));
 	_CreateButton.SetPosition(sf::Vector2f(_MainWindow->getSize().x - 200.0f * ScaleFactor, static_cast<float>(_MainWindow->getSize().y - 70 * ScaleFactor)));
+}
+
+void TabManager::OnTextEnteredEvent(char Input)
+{
+	_OpenTabs[_ActiveTabIndex]->OnTextEnteredEvent(Input);
 }
 
 void TabManager::CreateNewTab()
@@ -95,5 +100,5 @@ void TabManager::CreateNewTab()
 	_ActiveTabIndex = static_cast<int>(_OpenTabs.size() - 1);
 
 	_XPosition += 200;
-	this->Resize(); //Check if the new tab button should be resized
+	this->OnResizeEvent(); //Check if the new tab button should be resized
 }

@@ -43,6 +43,12 @@
     <Filter Include="Quelldateien\GUI\Button">
       <UniqueIdentifier>{417b739e-12a7-490f-84c7-c867e873cfbc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Headerdateien\GUI\Textbox">
+      <UniqueIdentifier>{ce96d816-503a-44c6-a144-c95482c5cfd8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Quelldateien\GUI\Textbox">
+      <UniqueIdentifier>{9881b26d-06cf-40d0-b5e9-8276ac0044a4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="code\main.cpp">
@@ -60,6 +66,9 @@
     <ClCompile Include="code\GUI\Button\Button.cpp">
       <Filter>Quelldateien\GUI\Button</Filter>
     </ClCompile>
+    <ClCompile Include="code\GUI\Textbox\Textbox.cpp">
+      <Filter>Quelldateien\GUI\Textbox</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="code\Core\Core.h">
@@ -73,6 +82,9 @@
     </ClInclude>
     <ClInclude Include="code\GUI\Button\Button.h">
       <Filter>Headerdateien\GUI\Button</Filter>
+    </ClInclude>
+    <ClInclude Include="code\GUI\Textbox\Textbox.h">
+      <Filter>Headerdateien\GUI\Textbox</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
