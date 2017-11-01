@@ -7,7 +7,7 @@ class Textbox
 {
 	public:
 
-		void Create(sf::RenderWindow *window, sf::Vector2f StartPosition);
+		void Create(sf::RenderWindow *window, sf::Vector2f StartPosition, int CharacterSize, sf::Color TextColor);
 
 		void Render();
 		void OnTextEntered(char Input);
@@ -23,5 +23,6 @@ class Textbox
 		sf::Font _Font;
 
 		float _StartX, _StartY;
-
+		int _CharacterSize;
+		sf::Color _TextColor;
 };

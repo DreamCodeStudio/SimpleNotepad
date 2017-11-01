@@ -10,8 +10,9 @@ void Tab::Create(sf::RenderWindow *window)
 	_IsDrawing = false;
 	_IsWriting = false;
 
-	_Radius = 3.0f;
-	_Color = sf::Color(0, 0, 0);
+	_SelectedColor = sf::Color(0, 0, 0);
+	_SelectedDrawingSize = 3.0f;
+	_SelectedWritingSize = 30;
 
 	/* Set a white rectangle as background */
 	_BackgroundTexture.loadFromFile("Data\\Textures\\Background.png");
@@ -39,8 +40,8 @@ void Tab::Update()
 		_IsDrawing = true; //User is drawing
 
 		_CurrentDrawing.push_back(new sf::CircleShape); //Create new circle 
-		_CurrentDrawing[_CurrentDrawing.size() - 1]->setRadius(_Radius);	//set radius
-		_CurrentDrawing[_CurrentDrawing.size() - 1]->setFillColor(_Color);	//set color
+		_CurrentDrawing[_CurrentDrawing.size() - 1]->setRadius(_SelectedDrawingSize);	//set radius
+		_CurrentDrawing[_CurrentDrawing.size() - 1]->setFillColor(_SelectedColor);	//set color
 		_CurrentDrawing[_CurrentDrawing.size() - 1]->setPosition(sf::Vector2f(static_cast<float>(sf::Mouse::getPosition(*_MainWindow).x), static_cast<float>(sf::Mouse::getPosition(*_MainWindow).y))); //set position
 	}
 	else
@@ -61,10 +62,11 @@ void Tab::Update()
 
 		/* Create new Textbox */
 		_Textboxes.push_back(new Textbox);
-		_Textboxes[_Textboxes.size() - 1]->Create(_MainWindow, sf::Vector2f(static_cast<float>(sf::Mouse::getPosition(*_MainWindow).x), static_cast<float>(sf::Mouse::getPosition(*_MainWindow).y)));
+		_Textboxes[_Textboxes.size() - 1]->Create(_MainWindow, sf::Vector2f(static_cast<float>(sf::Mouse::getPosition(*_MainWindow).x), static_cast<float>(sf::Mouse::getPosition(*_MainWindow).y)), _SelectedWritingSize, _SelectedColor);
 	}
 
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Return))
+	/* Exit from writing to drawing */
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
 	{
 		_IsWriting = false;
 	}
@@ -74,6 +76,44 @@ void Tab::Update()
 	{
 		_DrawingStack.pop_back();
 		_UndoCooldown.restart();
+	}
+
+	this->UpdateSidebar();
+}
+
+void Tab::UpdateSidebar()
+{
+	_Sidebar.Update();
+
+	if (_Sidebar.GetPressedElement() != -1)
+	{
+		if (_Sidebar.GetPressedElement() == 0)
+		{
+			_SelectedWritingSize = 20;
+			_SelectedDrawingSize = 1.5f;
+		}
+		if (_Sidebar.GetPressedElement() == 1)
+		{
+			_SelectedWritingSize = 30;
+			_SelectedDrawingSize = 3.0f;
+		}
+		if (_Sidebar.GetPressedElement() == 2)
+		{
+			_SelectedWritingSize = 30;
+			_SelectedDrawingSize = 4.5f;
+		}
+		if (_Sidebar.GetPressedElement() == 3)
+		{
+			_SelectedColor = sf::Color(255, 0, 0);
+		}
+		if (_Sidebar.GetPressedElement() == 4)
+		{
+			_SelectedColor = sf::Color(0, 255, 0);
+		}
+		if (_Sidebar.GetPressedElement() == 5)
+		{
+			_SelectedColor = sf::Color(0, 0, 0);
+		}
 	}
 }
 

@@ -1,7 +1,7 @@
 #pragma warning(disable : 4996)
 #include "Textbox.h"
 
-void Textbox::Create(sf::RenderWindow *window, sf::Vector2f StartPosition)
+void Textbox::Create(sf::RenderWindow *window, sf::Vector2f StartPosition, int CharacterSize, sf::Color TextColor)
 {
 	_MainWindow = window;
 
@@ -11,6 +11,9 @@ void Textbox::Create(sf::RenderWindow *window, sf::Vector2f StartPosition)
 	/* Set start values */
 	_StartX = StartPosition.x;
 	_StartY = StartPosition.y;
+
+	_CharacterSize = CharacterSize;
+	_TextColor = TextColor;
 }
 
 void Textbox::Render()
@@ -28,7 +31,6 @@ void Textbox::OnTextEntered(char Input)
 	{
 		return;
 	}
-
 	switch (static_cast<int>(Input))
 	{
 		/* Return */
@@ -44,6 +46,11 @@ void Textbox::OnTextEntered(char Input)
 			}
 		}
 				break;
+		/* Escape */
+		case 27: {
+			//Exit 
+		}
+				 break;
 		default: {
 			/* Add letter to the string */
 			_TextStr.push_back(Input);
@@ -69,8 +76,8 @@ void Textbox::UpdateDisplayText()
 	{
 		_Text.push_back(new sf::Text);
 		_Text[_Text.size() - 1]->setFont(_Font);
-		_Text[_Text.size() - 1]->setCharacterSize(30);
-		_Text[_Text.size() - 1]->setColor(sf::Color(0, 0, 0));
+		_Text[_Text.size() - 1]->setCharacterSize(_CharacterSize);
+		_Text[_Text.size() - 1]->setColor(_TextColor);
 		_Text[_Text.size() - 1]->setPosition(sf::Vector2f(StartXPosition, StartYPosition));
 		_Text[_Text.size() - 1]->setString(_TextStr[c]);
 

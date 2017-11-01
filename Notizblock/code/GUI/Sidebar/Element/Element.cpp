@@ -17,13 +17,16 @@ void Element::Render()
 void Element::Update()
 {
 	_IsPressed = false;
+	_IconSprite.setColor(sf::Color(255, 255, 255));
 
 	if (sf::Mouse::getPosition(*_MainWindow).x > _IconSprite.getPosition().x && sf::Mouse::getPosition(*_MainWindow).x < _IconSprite.getPosition().x + _IconSprite.getGlobalBounds().width &&
 		sf::Mouse::getPosition(*_MainWindow).y > _IconSprite.getPosition().y && sf::Mouse::getPosition(*_MainWindow).y < _IconSprite.getPosition().y + _IconSprite.getGlobalBounds().height)
 
 	{
+		_IconSprite.setColor(sf::Color(150, 150, 150));
 		if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
 		{
+			_IconSprite.setColor(sf::Color(50, 50, 50));
 			_IsPressed = true;
 		}
 	}

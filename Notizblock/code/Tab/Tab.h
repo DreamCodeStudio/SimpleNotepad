@@ -20,6 +20,8 @@ class Tab
 
 	private:
 
+		void UpdateSidebar();
+
 		sf::RenderWindow *_MainWindow;
 
 		bool _IsVisible;
@@ -31,8 +33,6 @@ class Tab
 
 
 		/* Drawing */
-		float _Radius;
-		sf::Color _Color;
 		std::vector<std::vector<sf::CircleShape*>> _DrawingStack;
 		std::vector<sf::CircleShape*> _CurrentDrawing;
 		sf::Clock _UndoCooldown;
@@ -43,4 +43,7 @@ class Tab
 		/* Sidebar */
 		Sidebar _Sidebar;
 
+		sf::Color _SelectedColor;
+		int _SelectedWritingSize;
+		float _SelectedDrawingSize;
 };

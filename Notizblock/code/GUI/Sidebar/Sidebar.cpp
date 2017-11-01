@@ -45,7 +45,6 @@ void Sidebar::Update()
 void Sidebar::SetScale(sf::Vector2f NewScale)
 {
 	_SidebarBackgroundSprite.setScale(NewScale);
-	std::cout << NewScale.x << std::endl;
 
 	/* Scale all Elements */
 	for (unsigned int c = 0; c < _Elements.size(); c++)
@@ -53,4 +52,17 @@ void Sidebar::SetScale(sf::Vector2f NewScale)
 		_Elements[c]->SetScale(NewScale);
 		_Elements[c]->SetPosition(sf::Vector2f(_SidebarBackgroundSprite.getPosition().x + (13 * NewScale.x), _SidebarBackgroundSprite.getPosition().y + (20 * NewScale.x) + (90.0f * NewScale.x * c)));
 	}
+}
+
+int Sidebar::GetPressedElement()
+{
+	for (unsigned int c = 0; c < _Elements.size(); c++)
+	{
+		if (_Elements[c]->IsPressed())
+		{
+			return c;
+		}
+	}
+
+	return -1;
 }

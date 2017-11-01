@@ -15,6 +15,8 @@ class Sidebar
 
 		void SetScale(sf::Vector2f NewScale);
 
+		int GetPressedElement();
+
 	private:
 
 		sf::RenderWindow *_MainWindow;
