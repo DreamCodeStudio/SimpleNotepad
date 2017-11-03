@@ -1,3 +1,4 @@
+#pragma warning(disable : 4996)
 #include "TabManager.h"
 
 void TabManager::Create(sf::RenderWindow *window)
@@ -12,9 +13,12 @@ void TabManager::Create(sf::RenderWindow *window)
 
 	/* Create CreateButton */
 	_CreateButton.Create(_MainWindow, -1, sf::Vector2f(1700, 950));
+	_SafeButton.Create(_MainWindow, -2, sf::Vector2f(1700, 880));
 	this->OnResizeEvent();	//If the window is not opened with 1920x1080 resolution
 
 	_ActiveTabIndex = 0;
+
+	_OpenTabs[0]->LoadFromFile();
 }
 
 void TabManager::Update()
@@ -39,11 +43,17 @@ void TabManager::Update()
 	}
 
 	_CreateButton.Update();
+	_SafeButton.Update();
 
 	/* If the Create button was pressed */
 	if (_CreateButton.IsPressed() && _OpenTabs.size() < 8) //Max. 8 tabs open
 	{
 		this->CreateNewTab();
+	}
+	if (_SafeButton.IsPressed())
+	{
+		/* Safe active tab */
+		_OpenTabs[_ActiveTabIndex]->SaveToFile();
 	}
 }
 
@@ -61,6 +71,7 @@ void TabManager::Render()
 	}
 
 	_CreateButton.Render();
+	_SafeButton.Render();
 }
 
 void TabManager::OnResizeEvent()
@@ -76,6 +87,8 @@ void TabManager::OnResizeEvent()
 
 	_CreateButton.SetScale(sf::Vector2f(ScaleFactor, ScaleFactor));
 	_CreateButton.SetPosition(sf::Vector2f(_MainWindow->getSize().x - 200.0f * ScaleFactor, static_cast<float>(_MainWindow->getSize().y - 70 * ScaleFactor)));
+	_SafeButton.SetScale(sf::Vector2f(ScaleFactor, ScaleFactor));
+	_SafeButton.SetPosition(sf::Vector2f(_MainWindow->getSize().x - 200.0f * ScaleFactor, static_cast<float>(_MainWindow->getSize().y - 150 * ScaleFactor)));
 
 	_OpenTabs[_ActiveTabIndex]->OnResizeEvent(); //The Sidebar (which is owned by the Tab class) must rescale too
 }

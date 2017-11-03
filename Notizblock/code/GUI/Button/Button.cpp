@@ -4,10 +4,6 @@
 void Button::Create(sf::RenderWindow *window, int Number, sf::Vector2f Position)
 {
 	_MainWindow = window;
-	
-	/* Load the background image of the button */
-	_BackgroundTexture.loadFromFile("Data\\Textures\\ButtonBackground.png");
-	_BackgroundSprite.setTexture(_BackgroundTexture);
 
 	/* Load the font */
 	_Font.loadFromFile("Data\\Fonts\\arial.ttf");
@@ -21,6 +17,18 @@ void Button::Create(sf::RenderWindow *window, int Number, sf::Vector2f Position)
 	if (Number == -1)
 	{
 		StrNumber = "+";
+	}
+	if (Number == -2)
+	{
+		StrNumber = "";
+		_BackgroundTexture.loadFromFile("Data\\Textures\\Disk.png");
+		_BackgroundSprite.setTexture(_BackgroundTexture);
+	}
+	else
+	{
+		/* Load the background image of the button */
+		_BackgroundTexture.loadFromFile("Data\\Textures\\ButtonBackground.png");
+		_BackgroundSprite.setTexture(_BackgroundTexture);
 	}
 
 	_NumberText.setString(StrNumber);

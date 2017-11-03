@@ -39,6 +39,15 @@ void Tab::Update()
 	{
 		_IsDrawing = true; //User is drawing
 
+		/* If theres already a point on the same position ...*/
+		if (_CurrentDrawing.size() > 0)
+		{
+			if (sf::Vector2f(static_cast<float>(sf::Mouse::getPosition(*_MainWindow).x), static_cast<float>(sf::Mouse::getPosition(*_MainWindow).y)) == _CurrentDrawing[_CurrentDrawing.size() - 1]->getPosition())
+			{
+				return; //Exit
+			}
+		}
+
 		_CurrentDrawing.push_back(new sf::CircleShape); //Create new circle 
 		_CurrentDrawing[_CurrentDrawing.size() - 1]->setRadius(_SelectedDrawingSize);	//set radius
 		_CurrentDrawing[_CurrentDrawing.size() - 1]->setFillColor(_SelectedColor);	//set color
@@ -164,4 +173,112 @@ void Tab::OnTextEnteredEvent(char Input)
 	{
 		_Textboxes[_Textboxes.size() - 1]->OnTextEntered(Input);
 	}
+}
+
+void Tab::SaveToFile()
+{
+	/* Write every drawing point to file */
+	std::fstream write;
+	write.open("test.note", std::ios::out | std::ios::app);
+	for (unsigned int c = 0; c < _DrawingStack.size(); c++)
+	{
+		for (unsigned int i = 0; i < _DrawingStack[c].size(); i++)
+		{
+			write << _DrawingStack[c][i]->getPosition().x << "/" << _DrawingStack[c][i]->getPosition().y << "/" << _DrawingStack[c][i]->getRadius() << "/";
+			if (_DrawingStack[c][i]->getFillColor() == sf::Color(255, 0, 0))
+			{
+				write << "1" << std::endl;
+			}
+			if (_DrawingStack[c][i]->getFillColor() == sf::Color(0, 255, 0))
+			{
+				write << "2" << std::endl;
+			}
+			if (_DrawingStack[c][i]->getFillColor() == sf::Color(0, 0, 0))
+			{
+				write << "3" << std::endl;
+			}
+
+
+		}
+	}
+}
+
+void Tab::LoadFromFile()
+{
+	/* Read the whole data in one string */
+	std::ifstream read("test.note");
+	if (!read)
+	{
+		std::cout << "Can not find file!" << std::endl;
+		return;
+	}
+	
+	std::string File;
+	while (read.good())
+	{
+		File.push_back(read.get());
+	}
+
+	std::vector<sf::CircleShape*> FileData; //Push everything in this Vector
+
+	/* Resolve the strng */
+	while (File.find('\n') != std::string::npos)
+	{
+		/* Copy the File string */
+		std::string CpyFile = File;
+
+		/* Only the first line is needed -> everything else should be deleted */
+		CpyFile.erase(CpyFile.begin() + CpyFile.find('\n'), CpyFile.end());
+
+		/* The information for the current drawing point is in this line */
+		std::string XPosition = CpyFile;	//The first number is the X-Position
+		std::string YPosition = CpyFile;	//The second number is the Y-Position
+		std::string Radius = CpyFile;		//The third number is the Radius
+		std::string Color = CpyFile;		//The fourth number is the color
+
+		XPosition.erase(XPosition.begin() + XPosition.find('/'), XPosition.end()); //Delete everything which is not the first number
+
+		/* Get YPosition */
+		YPosition.erase(YPosition.begin(), YPosition.begin() + YPosition.find('/') + 1);
+		YPosition.erase(YPosition.begin() + YPosition.find('/'), YPosition.end());
+
+		/* Get Radius */
+		Radius.erase(Radius.begin(), Radius.begin() + Radius.find('/') + 1);
+		Radius.erase(Radius.begin(), Radius.begin() + Radius.find('/') + 1);
+		Radius.erase(Radius.begin() + Radius.find('/'), Radius.end());
+
+		/* Get Color */
+		Color.erase(Color.begin(), Color.begin() + Color.find('/') + 1);
+		Color.erase(Color.begin(), Color.begin() + Color.find('/') + 1);
+		Color.erase(Color.begin(), Color.begin() + Color.find('/') + 1);
+
+		//std::cout << XPosition << "/" << YPosition << "/" << Radius << "/" << Color << std::endl; //Debug output
+
+		/* Convert to needed types */
+		sf::Color DrawingColor;
+		float XPositionV = static_cast<float>(atof(XPosition.c_str()));
+		float YPositionV = static_cast<float>(atof(YPosition.c_str()));
+		float RadiusV = static_cast<float>(atof(Radius.c_str()));
+		if (atoi(Color.c_str()) == 1)
+		{
+			DrawingColor = sf::Color(255, 0, 0);
+		}
+		if (atoi(Color.c_str()) == 2)
+		{
+			DrawingColor = sf::Color(0, 255, 0);
+		}
+		if (atoi(Color.c_str()) == 3)
+		{
+			DrawingColor = sf::Color(0, 0, 0);
+		}
+
+		FileData.push_back(new sf::CircleShape);
+		FileData[FileData.size() - 1]->setFillColor(DrawingColor);
+		FileData[FileData.size() - 1]->setPosition(sf::Vector2f(XPositionV, YPositionV));
+		FileData[FileData.size() - 1]->setRadius(RadiusV);
+
+		File.erase(File.begin(), File.begin() + File.find('\n') + 1); //Delete current line of the file
+	}
+
+	_DrawingStack.push_back(FileData);
 }

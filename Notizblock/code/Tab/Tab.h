@@ -1,5 +1,6 @@
 #pragma once
 #include <SFML\Graphics.hpp>
+#include <fstream>
 
 #include "..\GUI\Textbox\Textbox.h"
 #include "..\..\GUI\Sidebar\Sidebar.h"
@@ -17,6 +18,9 @@ class Tab
 
 		void OnResizeEvent();
 		void OnTextEnteredEvent(char Input);
+
+		void SaveToFile();
+		void LoadFromFile();
 
 	private:
 

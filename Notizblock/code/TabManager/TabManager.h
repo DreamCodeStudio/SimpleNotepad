@@ -25,7 +25,7 @@ class TabManager
 		std::vector<Tab*> _OpenTabs;
 		std::vector<Button*> _Buttons;
 		
-		Button _CreateButton;
+		Button _CreateButton, _SafeButton, _LoadButton;
 
 		int _ActiveTabIndex;
 		int _XPosition;
