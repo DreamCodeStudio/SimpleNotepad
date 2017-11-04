@@ -61,6 +61,12 @@
     <Filter Include="Quelldateien\GUI\Sidebar\Element">
       <UniqueIdentifier>{8ec3ce6f-f7be-4b93-b4bd-57d25f411b79}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Headerdateien\Explorer">
+      <UniqueIdentifier>{71e8712e-6086-4625-9e26-33078e37e56c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Quelldateien\Explorer">
+      <UniqueIdentifier>{0a4cf814-3a55-43d0-a9c5-a53120f9f52d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="code\main.cpp">
@@ -87,6 +93,9 @@
     <ClCompile Include="code\GUI\Sidebar\Element\Element.cpp">
       <Filter>Quelldateien\GUI\Sidebar\Element</Filter>
     </ClCompile>
+    <ClCompile Include="code\Explorer\Explorer.cpp">
+      <Filter>Quelldateien\Explorer</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="code\Core\Core.h">
@@ -109,6 +118,9 @@
     </ClInclude>
     <ClInclude Include="code\GUI\Sidebar\Element\Element.h">
       <Filter>Headerdateien\GUI\Sidebar\Element</Filter>
+    </ClInclude>
+    <ClInclude Include="code\Explorer\Explorer.h">
+      <Filter>Headerdateien\Explorer</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

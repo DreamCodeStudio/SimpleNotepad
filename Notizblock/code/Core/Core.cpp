@@ -39,7 +39,10 @@ void Core::HandleEvents()
 		}
 		if (event.type == sf::Event::TextEntered)
 		{
-			/* Core receives Input -> TabManager -> Active Tab -> Textbox */
+			// Core receives Input -> TabManager -> Active Tab -> Textbox
+			//									\
+			//									 -> Explorer   -> Textbox
+
 			_TabManager.OnTextEnteredEvent(event.text.unicode);
 		}
 	}

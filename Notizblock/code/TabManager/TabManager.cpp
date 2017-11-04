@@ -14,11 +14,14 @@ void TabManager::Create(sf::RenderWindow *window)
 	/* Create CreateButton */
 	_CreateButton.Create(_MainWindow, -1, sf::Vector2f(1700, 950));
 	_SafeButton.Create(_MainWindow, -2, sf::Vector2f(1700, 880));
+	_LoadButton.Create(_MainWindow, -3, sf::Vector2f(1700, 810));
 	this->OnResizeEvent();	//If the window is not opened with 1920x1080 resolution
 
-	_ActiveTabIndex = 0;
+	/* Create Explorer */
+	_Explorer.Create(_MainWindow);
+	_CurrentProgress = NO_PROGRESS;
 
-	_OpenTabs[0]->LoadFromFile();
+	_ActiveTabIndex = 0;
 }
 
 void TabManager::Update()
@@ -43,6 +46,7 @@ void TabManager::Update()
 	}
 
 	_CreateButton.Update();
+	_LoadButton.Update();
 	_SafeButton.Update();
 
 	/* If the Create button was pressed */
@@ -53,7 +57,39 @@ void TabManager::Update()
 	if (_SafeButton.IsPressed())
 	{
 		/* Safe active tab */
-		_OpenTabs[_ActiveTabIndex]->SaveToFile();
+		_Explorer.Open();
+		_CurrentProgress = SAVE_PROGRESS;
+	}
+	if (_LoadButton.IsPressed())
+	{
+		/* Open Explorer and ask for file to load */
+		_Explorer.Open();
+		_CurrentProgress = LOAD_PROGRESS;
+	}
+
+	if (_Explorer.IsOpen())
+	{
+		std::string Filename = _Explorer.GetText();
+		if (Filename.find('\n') != std::string::npos) //If the user pressed 'Return' he has finished his Input
+		{
+			/* Safe file */
+			Filename.erase(Filename.begin() + Filename.find('\n'), Filename.end()); //Delete '\n'
+
+			/* Save or load the file */
+			if (_CurrentProgress == SAVE_PROGRESS)
+			{
+				_OpenTabs[_ActiveTabIndex]->SaveToFile(Filename);
+			}
+			if (_CurrentProgress == LOAD_PROGRESS)
+			{
+				_OpenTabs[_ActiveTabIndex]->LoadFromFile(Filename);
+			}
+			
+			/* Close explorer - finish load or safe process */
+			_Explorer.Close();
+			_Explorer.Clear();
+			_CurrentProgress = NO_PROGRESS;
+		}
 	}
 }
 
@@ -72,6 +108,8 @@ void TabManager::Render()
 
 	_CreateButton.Render();
 	_SafeButton.Render();
+	_LoadButton.Render();
+	_Explorer.Render();
 }
 
 void TabManager::OnResizeEvent()
@@ -88,14 +126,23 @@ void TabManager::OnResizeEvent()
 	_CreateButton.SetScale(sf::Vector2f(ScaleFactor, ScaleFactor));
 	_CreateButton.SetPosition(sf::Vector2f(_MainWindow->getSize().x - 200.0f * ScaleFactor, static_cast<float>(_MainWindow->getSize().y - 70 * ScaleFactor)));
 	_SafeButton.SetScale(sf::Vector2f(ScaleFactor, ScaleFactor));
-	_SafeButton.SetPosition(sf::Vector2f(_MainWindow->getSize().x - 200.0f * ScaleFactor, static_cast<float>(_MainWindow->getSize().y - 150 * ScaleFactor)));
+	_SafeButton.SetPosition(sf::Vector2f(_MainWindow->getSize().x - 200.0f * ScaleFactor, static_cast<float>(_MainWindow->getSize().y - 140 * ScaleFactor)));
+	_LoadButton.SetScale(sf::Vector2f(ScaleFactor, ScaleFactor));
+	_LoadButton.SetPosition(sf::Vector2f(_MainWindow->getSize().x - 200.0f * ScaleFactor, static_cast<float>(_MainWindow->getSize().y - 210 * ScaleFactor)));
 
 	_OpenTabs[_ActiveTabIndex]->OnResizeEvent(); //The Sidebar (which is owned by the Tab class) must rescale too
 }
 
 void TabManager::OnTextEnteredEvent(char Input)
 {
-	_OpenTabs[_ActiveTabIndex]->OnTextEnteredEvent(Input);
+	if (_Explorer.IsOpen())
+	{
+		_Explorer.OnTextEnteredEvent(Input);
+	}
+	else
+	{
+		_OpenTabs[_ActiveTabIndex]->OnTextEnteredEvent(Input);
+	}
 }
 
 void TabManager::CreateNewTab()

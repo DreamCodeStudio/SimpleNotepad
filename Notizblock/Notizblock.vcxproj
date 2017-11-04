@@ -119,6 +119,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="code\Core\Core.cpp" />
+    <ClCompile Include="code\Explorer\Explorer.cpp" />
     <ClCompile Include="code\GUI\Button\Button.cpp" />
     <ClCompile Include="code\GUI\Sidebar\Element\Element.cpp" />
     <ClCompile Include="code\GUI\Sidebar\Sidebar.cpp" />
@@ -129,6 +130,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="code\Core\Core.h" />
+    <ClInclude Include="code\Explorer\Explorer.h" />
     <ClInclude Include="code\GUI\Button\Button.h" />
     <ClInclude Include="code\GUI\Sidebar\Element\Element.h" />
     <ClInclude Include="code\GUI\Sidebar\Sidebar.h" />

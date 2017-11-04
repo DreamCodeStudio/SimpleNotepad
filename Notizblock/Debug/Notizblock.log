@@ -1,4 +1,5 @@
 ﻿  Core.cpp
+  Explorer.cpp
   Button.cpp
   Element.cpp
   Sidebar.cpp

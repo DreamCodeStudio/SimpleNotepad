@@ -14,21 +14,31 @@ void Button::Create(sf::RenderWindow *window, int Number, sf::Vector2f Position)
 	str << Number;
 	str >> StrNumber;
 	
-	if (Number == -1)
+	switch (Number)
 	{
-		StrNumber = "+";
-	}
-	if (Number == -2)
-	{
-		StrNumber = "";
-		_BackgroundTexture.loadFromFile("Data\\Textures\\Disk.png");
-		_BackgroundSprite.setTexture(_BackgroundTexture);
-	}
-	else
-	{
-		/* Load the background image of the button */
-		_BackgroundTexture.loadFromFile("Data\\Textures\\ButtonBackground.png");
-		_BackgroundSprite.setTexture(_BackgroundTexture);
+		case -1: {
+			_BackgroundTexture.loadFromFile("Data\\Textures\\ButtonBackground.png");
+			_BackgroundSprite.setTexture(_BackgroundTexture);
+			StrNumber = "+";
+		}
+			break;
+		case -2: {
+			StrNumber = "";
+			_BackgroundTexture.loadFromFile("Data\\Textures\\Disk.png");
+			_BackgroundSprite.setTexture(_BackgroundTexture);
+		}
+				 break;
+		case -3: {
+			StrNumber = "";
+			_BackgroundTexture.loadFromFile("Data\\Textures\\Load.png");
+			_BackgroundSprite.setTexture(_BackgroundTexture);
+		}
+				 break;
+		default: {
+			/* Load the background image of the button */
+			_BackgroundTexture.loadFromFile("Data\\Textures\\ButtonBackground.png");
+			_BackgroundSprite.setTexture(_BackgroundTexture);
+		}
 	}
 
 	_NumberText.setString(StrNumber);

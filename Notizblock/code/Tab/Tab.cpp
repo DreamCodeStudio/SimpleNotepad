@@ -64,7 +64,7 @@ void Tab::Update()
 		}
 	}
 
-	if (sf::Mouse::isButtonPressed(sf::Mouse::Right) && _IsDrawing == false)
+	if (sf::Mouse::isButtonPressed(sf::Mouse::Right) && _IsDrawing == false && _IsWriting == false)
 	{
 		/* The user wants to write something */
 		_IsWriting = true;
@@ -78,6 +78,9 @@ void Tab::Update()
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
 	{
 		_IsWriting = false;
+
+		/* Set Cursor of Textbox invisible */
+		_Textboxes[_Textboxes.size() - 1]->Finish();
 	}
 
 	/* If the user wants to undo the last drawing */
@@ -175,11 +178,11 @@ void Tab::OnTextEnteredEvent(char Input)
 	}
 }
 
-void Tab::SaveToFile()
+void Tab::SaveToFile(std::string FileName)
 {
 	/* Write every drawing point to file */
 	std::fstream write;
-	write.open("test.note", std::ios::out | std::ios::app);
+	write.open(FileName.c_str(), std::ios::out | std::ios::app);
 	for (unsigned int c = 0; c < _DrawingStack.size(); c++)
 	{
 		for (unsigned int i = 0; i < _DrawingStack[c].size(); i++)
@@ -203,13 +206,12 @@ void Tab::SaveToFile()
 	}
 }
 
-void Tab::LoadFromFile()
+void Tab::LoadFromFile(std::string FileName)
 {
 	/* Read the whole data in one string */
-	std::ifstream read("test.note");
+	std::ifstream read(FileName.c_str());
 	if (!read)
 	{
-		std::cout << "Can not find file!" << std::endl;
 		return;
 	}
 	

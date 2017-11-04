@@ -11,6 +11,10 @@ class Textbox
 
 		void Render();
 		void OnTextEntered(char Input);
+		void Finish();
+
+		std::string GetText();
+		void Clear();
 
 	private:
 
@@ -21,6 +25,7 @@ class Textbox
 		std::string _TextStr;
 		std::vector<sf::Text*> _Text;
 		sf::Font _Font;
+		sf::RectangleShape _Cursor;
 
 		float _StartX, _StartY;
 		int _CharacterSize;

@@ -19,8 +19,8 @@ class Tab
 		void OnResizeEvent();
 		void OnTextEnteredEvent(char Input);
 
-		void SaveToFile();
-		void LoadFromFile();
+		void SaveToFile(std::string FileName);
+		void LoadFromFile(std::string FileName);
 
 	private:
 
@@ -46,7 +46,8 @@ class Tab
 
 		/* Sidebar */
 		Sidebar _Sidebar;
-
+		
+		/* Sidebar settings */
 		sf::Color _SelectedColor;
 		int _SelectedWritingSize;
 		float _SelectedDrawingSize;

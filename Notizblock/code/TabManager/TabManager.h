@@ -3,6 +3,11 @@
 
 #include "..\Tab\Tab.h"
 #include "..\GUI\Button\Button.h"
+#include "..\Explorer\Explorer.h"
+
+#define NO_PROGRESS 0
+#define SAVE_PROGRESS 1
+#define LOAD_PROGRESS 2
 
 class TabManager
 {
@@ -29,4 +34,8 @@ class TabManager
 
 		int _ActiveTabIndex;
 		int _XPosition;
+
+		Explorer _Explorer;
+		int _CurrentProgress;
+
 };

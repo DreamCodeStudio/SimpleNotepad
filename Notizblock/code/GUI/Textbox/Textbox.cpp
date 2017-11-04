@@ -12,12 +12,20 @@ void Textbox::Create(sf::RenderWindow *window, sf::Vector2f StartPosition, int C
 	_StartX = StartPosition.x;
 	_StartY = StartPosition.y;
 
+	/* Create Cursor */
+	_Cursor.setSize(sf::Vector2f(3.0f, static_cast<float>(CharacterSize)));
+	_Cursor.setFillColor(TextColor);
+	_Cursor.setPosition(StartPosition);
+
 	_CharacterSize = CharacterSize;
 	_TextColor = TextColor;
 }
 
 void Textbox::Render()
 {
+	/* Render Cursor */
+	_MainWindow->draw(_Cursor);
+
 	/* Render every letter */
 	for (unsigned int c = 0; c < _Text.size(); c++)
 	{
@@ -92,5 +100,28 @@ void Textbox::UpdateDisplayText()
 			StartXPosition = _StartX;
 			StartYPosition += _Text[_Text.size() - 1]->getCharacterSize();
 		}
+
+		_Cursor.setPosition(_Text[_Text.size() - 1]->getPosition().x + _Text[_Text.size() - 1]->getGlobalBounds().width, _Text[_Text.size() - 1]->getPosition().y);
 	}
+}
+
+void Textbox::Finish()
+{
+	_Cursor.setSize(sf::Vector2f(0, 0));
+}
+
+std::string Textbox::GetText()
+{
+	return _TextStr;
+}
+
+void Textbox::Clear()
+{
+	/* Clear the textbox */
+	for (unsigned int c = 0; c < _Text.size(); c++)
+	{
+		delete _Text[c];
+	}
+	_Text.clear();
+	_TextStr.clear();
 }
