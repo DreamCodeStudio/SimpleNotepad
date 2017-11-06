@@ -200,10 +200,31 @@ void Tab::SaveToFile(std::string FileName)
 			{
 				write << "3" << std::endl;
 			}
-
-
 		}
 	}
+
+	/* Now save all the text */
+	for (unsigned int c = 0; c < _Textboxes.size(); c++)
+	{
+		write << "T" << "/" << _Textboxes[c]->GetStartPosition().x << "/" << _Textboxes[c]->GetStartPosition().y << "/" << _Textboxes[c]->GetCharacterSize() << "/";
+		if (_Textboxes[c]->GetColor() == sf::Color(255, 0, 0))
+		{
+			write << "1/";
+		}
+		if (_Textboxes[c]->GetColor() == sf::Color(0, 255, 0))
+		{
+			write << "2/";
+		}
+		if (_Textboxes[c]->GetColor() == sf::Color(0, 0, 0))
+		{
+			write << "3/";
+		}
+
+		write << _Textboxes[c]->GetText() << std::endl;
+
+	}
+
+	write.close();
 }
 
 void Tab::LoadFromFile(std::string FileName)
@@ -231,6 +252,12 @@ void Tab::LoadFromFile(std::string FileName)
 
 		/* Only the first line is needed -> everything else should be deleted */
 		CpyFile.erase(CpyFile.begin() + CpyFile.find('\n'), CpyFile.end());
+
+		/* If the line holds the information for text exit here */
+		if (CpyFile.find("T/") != std::string::npos)
+		{
+			break;
+		}
 
 		/* The information for the current drawing point is in this line */
 		std::string XPosition = CpyFile;	//The first number is the X-Position
@@ -278,9 +305,78 @@ void Tab::LoadFromFile(std::string FileName)
 		FileData[FileData.size() - 1]->setFillColor(DrawingColor);
 		FileData[FileData.size() - 1]->setPosition(sf::Vector2f(XPositionV, YPositionV));
 		FileData[FileData.size() - 1]->setRadius(RadiusV);
-
+		
 		File.erase(File.begin(), File.begin() + File.find('\n') + 1); //Delete current line of the file
 	}
-
 	_DrawingStack.push_back(FileData);
+
+	File.erase(File.begin(), File.begin() + File.find("T/"));
+
+	/* Now resolve for Textboxes */
+	while (File.find("T/") != std::string::npos)
+	{
+		std::cout << "Searching..." << std::endl;
+		std::string CpyFile = File;
+		CpyFile.erase(CpyFile.begin() + CpyFile.find('\n'), CpyFile.end()); 
+		CpyFile.erase(CpyFile.begin(), CpyFile.begin() + 2);//Erase T/ the start of the line
+
+		/* Now get the X and Y Position of the Textbox */
+		std::string XPosition = CpyFile;
+		std::string YPosition = CpyFile;
+
+		/* Get XPosition */
+		XPosition.erase(XPosition.begin() + XPosition.find('/'), XPosition.end());
+		/* Get YPosition */
+		YPosition.erase(YPosition.begin(), YPosition.begin() + YPosition.find('/') + 1);
+		YPosition.erase(YPosition.begin() + YPosition.find('/'), YPosition.end());
+
+		float XPos = static_cast<float>(atof(XPosition.c_str()));
+		float YPos = static_cast<float>(atof(YPosition.c_str()));
+		std::cout << XPos << "/" << YPos << std::endl;
+
+		/* Get Character size */
+		std::string CharacterSize = CpyFile;
+		CharacterSize.erase(CharacterSize.begin(), CharacterSize.begin() + CharacterSize.find('/') + 1);
+		CharacterSize.erase(CharacterSize.begin(), CharacterSize.begin() + CharacterSize.find('/') + 1);
+		CharacterSize.erase(CharacterSize.begin() + CharacterSize.find('/'), CharacterSize.end());
+
+		int CharacterS = atoi(CharacterSize.c_str());
+		std::cout << CharacterS << std::endl;
+
+		/* Get Color */
+		std::string Color = CpyFile;
+		Color.erase(Color.begin(), Color.begin() + Color.find('/') + 1);
+		Color.erase(Color.begin(), Color.begin() + Color.find('/') + 1);
+		Color.erase(Color.begin(), Color.begin() + Color.find('/') + 1);
+		Color.erase(Color.begin() + Color.find('/'), Color.end());
+
+		sf::Color DrawingColor;
+		if (atoi(Color.c_str()) == 1)
+		{
+			DrawingColor = sf::Color(255, 0, 0);
+		}
+		if (atoi(Color.c_str()) == 2)
+		{
+			DrawingColor = sf::Color(0, 255, 0);
+		}
+		if (atoi(Color.c_str()) == 3)
+		{
+			DrawingColor = sf::Color(0, 0, 0);
+		}
+		std::cout << atoi(Color.c_str()) << std::endl;
+	
+		/* Get Text */
+		std::string Text = CpyFile;
+		Text.erase(Text.begin(), Text.begin() + Text.find('/') + 1);
+		Text.erase(Text.begin(), Text.begin() + Text.find('/') + 1);
+		Text.erase(Text.begin(), Text.begin() + Text.find('/') + 1);
+		Text.erase(Text.begin(), Text.begin() + Text.find('/') + 1);
+		std::cout << Text << std::endl;
+
+		_Textboxes.push_back(new Textbox);
+		_Textboxes[_Textboxes.size() - 1]->Create(_MainWindow, sf::Vector2f(XPos, YPos), CharacterS, DrawingColor);
+		_Textboxes[_Textboxes.size() - 1]->SetText(Text);
+
+		File.erase(File.begin(), File.begin() + File.find("\n") + 1);
+	}
 }

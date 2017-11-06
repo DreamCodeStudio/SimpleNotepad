@@ -4,6 +4,7 @@
 void Textbox::Create(sf::RenderWindow *window, sf::Vector2f StartPosition, int CharacterSize, sf::Color TextColor)
 {
 	_MainWindow = window;
+	_StartPosition = StartPosition;
 
 	/* Load font */
 	_Font.loadFromFile("Data\\Fonts\\arial.ttf");
@@ -110,6 +111,21 @@ void Textbox::Finish()
 	_Cursor.setSize(sf::Vector2f(0, 0));
 }
 
+int Textbox::GetCharacterSize()
+{
+	return _CharacterSize;
+}
+
+sf::Color Textbox::GetColor()
+{
+	return _TextColor;
+}
+
+sf::Vector2f Textbox::GetStartPosition()
+{
+	return _StartPosition;
+}
+
 std::string Textbox::GetText()
 {
 	return _TextStr;
@@ -124,4 +140,11 @@ void Textbox::Clear()
 	}
 	_Text.clear();
 	_TextStr.clear();
+}
+
+void Textbox::SetText(std::string NewText)
+{
+	_TextStr = NewText;
+	_Cursor.setSize(sf::Vector2f(0, 0));
+	this->UpdateDisplayText();
 }

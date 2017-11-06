@@ -12,8 +12,13 @@ class Textbox
 		void Render();
 		void OnTextEntered(char Input);
 		void Finish();
+		void SetText(std::string NewText);
 
+
+		int GetCharacterSize();
 		std::string GetText();
+		sf::Color GetColor();
+		sf::Vector2f GetStartPosition();
 		void Clear();
 
 	private:
@@ -22,6 +27,7 @@ class Textbox
 
 		sf::RenderWindow *_MainWindow;
 
+		sf::Vector2f _StartPosition;
 		std::string _TextStr;
 		std::vector<sf::Text*> _Text;
 		sf::Font _Font;
