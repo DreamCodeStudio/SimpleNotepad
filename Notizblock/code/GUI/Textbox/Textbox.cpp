@@ -20,6 +20,8 @@ void Textbox::Create(sf::RenderWindow *window, sf::Vector2f StartPosition, int C
 
 	_CharacterSize = CharacterSize;
 	_TextColor = TextColor;
+
+	_IsActive = true;
 }
 
 void Textbox::Render()
@@ -34,12 +36,22 @@ void Textbox::Render()
 	}
 }
 
+void Textbox::Update()
+{
+	this->UpdateActivityStatus(); //Check if the user wants to select this textbox 
+}
+
 void Textbox::OnTextEntered(char Input)
 {
+	if (_IsActive == false) //If the textbox is not selected anymore
+	{
+		return;
+	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::LControl)) //If the user pressed CTRL + Z to undo the last drawing, the user does not want to write some text
 	{
 		return;
 	}
+
 	switch (static_cast<int>(Input))
 	{
 		/* Return */
@@ -106,9 +118,60 @@ void Textbox::UpdateDisplayText()
 	}
 }
 
-void Textbox::Finish()
+void Textbox::UpdateActivityStatus()
 {
-	_Cursor.setSize(sf::Vector2f(0, 0));
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
+	{
+		_IsActive = false;
+		this->SetCursorVisibility(false);
+	}
+
+	if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+	{
+		/* Get the Width of the textbox */
+		float WidthMax = 0;
+		float Width = 0;
+		float LineCounter = 1;
+		for (unsigned int c = 0; c < _Text.size(); c++)
+		{
+			if (_Text[c]->getString() != "\n")
+			{
+				Width = Width + _Text[c]->getGlobalBounds().width;
+			}
+			else
+			{
+				LineCounter++;
+				if (Width > WidthMax)
+				{
+					WidthMax = Width;
+				}
+				Width = 0;
+			}
+		}
+		if (LineCounter == 1)
+		{
+			WidthMax = Width;
+		}
+
+		if (sf::Mouse::getPosition(*_MainWindow).x > _StartPosition.x && sf::Mouse::getPosition(*_MainWindow).x < _StartPosition.x + WidthMax &&
+			sf::Mouse::getPosition(*_MainWindow).y > _StartPosition.y && sf::Mouse::getPosition(*_MainWindow).y < _StartPosition.y + LineCounter * _CharacterSize)
+		{
+			_IsActive = true;
+			this->SetCursorVisibility(true);
+		}
+	}
+}
+
+void Textbox::SetCursorVisibility(bool NewStatus)
+{
+	if (NewStatus == false)
+	{
+		_Cursor.setSize(sf::Vector2f(0, 0));
+	}
+	else
+	{
+		_Cursor.setSize(sf::Vector2f(3.0f, static_cast<float>(_CharacterSize)));
+	}
 }
 
 int Textbox::GetCharacterSize()

@@ -8,7 +8,6 @@ void Tab::Create(sf::RenderWindow *window)
 
 	_IsVisible = false;
 	_IsDrawing = false;
-	_IsWriting = false;
 
 	_SelectedColor = sf::Color(0, 0, 0);
 	_SelectedDrawingSize = 3.0f;
@@ -35,7 +34,7 @@ void Tab::Update()
 	}
 
 	/* If the left mouse button is pressed - the user wants to draw */
-	if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && _IsWriting == false)
+	if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
 	{
 		_IsDrawing = true; //User is drawing
 
@@ -64,23 +63,12 @@ void Tab::Update()
 		}
 	}
 
-	if (sf::Mouse::isButtonPressed(sf::Mouse::Right) && _IsDrawing == false && _IsWriting == false)
+	if (sf::Mouse::isButtonPressed(sf::Mouse::Right) && _IsDrawing == false)
 	{
-		/* The user wants to write something */
-		_IsWriting = true;
-
 		/* Create new Textbox */
 		_Textboxes.push_back(new Textbox);
 		_Textboxes[_Textboxes.size() - 1]->Create(_MainWindow, sf::Vector2f(static_cast<float>(sf::Mouse::getPosition(*_MainWindow).x), static_cast<float>(sf::Mouse::getPosition(*_MainWindow).y)), _SelectedWritingSize, _SelectedColor);
-	}
-
-	/* Exit from writing to drawing */
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
-	{
-		_IsWriting = false;
-
-		/* Set Cursor of Textbox invisible */
-		_Textboxes[_Textboxes.size() - 1]->Finish();
+		while (sf::Mouse::isButtonPressed(sf::Mouse::Right));
 	}
 
 	/* If the user wants to undo the last drawing */
@@ -91,6 +79,7 @@ void Tab::Update()
 	}
 
 	this->UpdateSidebar();
+	this->UpdateTextboxes();
 }
 
 void Tab::UpdateSidebar()
@@ -126,6 +115,14 @@ void Tab::UpdateSidebar()
 		{
 			_SelectedColor = sf::Color(0, 0, 0);
 		}
+	}
+}
+
+void Tab::UpdateTextboxes()
+{
+	for (unsigned int c = 0; c < _Textboxes.size(); c++)
+	{
+		_Textboxes[c]->Update();
 	}
 }
 
@@ -172,9 +169,9 @@ void Tab::OnResizeEvent()
 
 void Tab::OnTextEnteredEvent(char Input)
 {
-	if (_IsWriting == true)
+	for (unsigned int c = 0; c < _Textboxes.size(); c++)
 	{
-		_Textboxes[_Textboxes.size() - 1]->OnTextEntered(Input);
+		_Textboxes[c]->OnTextEntered(Input);
 	}
 }
 

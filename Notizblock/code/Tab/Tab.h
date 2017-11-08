@@ -25,12 +25,12 @@ class Tab
 	private:
 
 		void UpdateSidebar();
+		void UpdateTextboxes();
 
 		sf::RenderWindow *_MainWindow;
 
 		bool _IsVisible;
 		bool _IsDrawing;
-		bool _IsWriting;
 
 		sf::Texture _BackgroundTexture;
 		sf::Sprite _BackgroundSprite;

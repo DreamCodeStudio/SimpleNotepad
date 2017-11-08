@@ -10,8 +10,9 @@ class Textbox
 		void Create(sf::RenderWindow *window, sf::Vector2f StartPosition, int CharacterSize, sf::Color TextColor);
 
 		void Render();
+		void Update();
+		
 		void OnTextEntered(char Input);
-		void Finish();
 		void SetText(std::string NewText);
 
 
@@ -24,8 +25,13 @@ class Textbox
 	private:
 
 		void UpdateDisplayText();
+		void UpdateActivityStatus();
+
+		void SetCursorVisibility(bool NewStatus);
 
 		sf::RenderWindow *_MainWindow;
+
+		bool _IsActive;
 
 		sf::Vector2f _StartPosition;
 		std::string _TextStr;
