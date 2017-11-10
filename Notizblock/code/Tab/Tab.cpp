@@ -307,15 +307,21 @@ void Tab::LoadFromFile(std::string FileName)
 	}
 	_DrawingStack.push_back(FileData);
 
+
 	File.erase(File.begin(), File.begin() + File.find("T/"));
+	std::cout << "BT: " << File << std::endl;
 
 	/* Now resolve for Textboxes */
 	while (File.find("T/") != std::string::npos)
 	{
 		std::cout << "Searching..." << std::endl;
 		std::string CpyFile = File;
-		CpyFile.erase(CpyFile.begin() + CpyFile.find('\n'), CpyFile.end()); 
 		CpyFile.erase(CpyFile.begin(), CpyFile.begin() + 2);//Erase T/ the start of the line
+
+		if (CpyFile.find("T/") != std::string::npos)
+		{
+			CpyFile.erase(CpyFile.begin() + CpyFile.find("T/"), CpyFile.end());
+		}
 
 		/* Now get the X and Y Position of the Textbox */
 		std::string XPosition = CpyFile;
@@ -369,11 +375,22 @@ void Tab::LoadFromFile(std::string FileName)
 		Text.erase(Text.begin(), Text.begin() + Text.find('/') + 1);
 		Text.erase(Text.begin(), Text.begin() + Text.find('/') + 1);
 		std::cout << Text << std::endl;
+		Text.pop_back();
 
 		_Textboxes.push_back(new Textbox);
 		_Textboxes[_Textboxes.size() - 1]->Create(_MainWindow, sf::Vector2f(XPos, YPos), CharacterS, DrawingColor);
 		_Textboxes[_Textboxes.size() - 1]->SetText(Text);
+		_Textboxes[_Textboxes.size() - 1]->SetActiveStatus(false);
 
-		File.erase(File.begin(), File.begin() + File.find("\n") + 1);
+	
+		File.erase(File.begin(), File.begin() + 2); //Lösch das erste T/
+		if (File.find("T/") != std::string::npos)
+		{
+			File.erase(File.begin(), File.begin() + File.find("T/"));
+		}
+		else
+		{
+			File.erase(File.begin(), File.end());
+		}
 	}
 }

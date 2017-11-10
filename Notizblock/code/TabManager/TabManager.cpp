@@ -48,6 +48,7 @@ void TabManager::Update()
 	_CreateButton.Update();
 	_LoadButton.Update();
 	_SafeButton.Update();
+	_Explorer.Update();
 
 	/* If the Create button was pressed */
 	if (_CreateButton.IsPressed() && _OpenTabs.size() < 8) //Max. 8 tabs open

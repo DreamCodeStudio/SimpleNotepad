@@ -14,7 +14,7 @@ class Textbox
 		
 		void OnTextEntered(char Input);
 		void SetText(std::string NewText);
-
+		void SetActiveStatus(bool NewStatus);
 
 		int GetCharacterSize();
 		std::string GetText();
@@ -26,6 +26,7 @@ class Textbox
 
 		void UpdateDisplayText();
 		void UpdateActivityStatus();
+		void UpdateCursorMovement();
 
 		void SetCursorVisibility(bool NewStatus);
 
@@ -39,6 +40,7 @@ class Textbox
 		sf::Font _Font;
 		sf::RectangleShape _Cursor;
 
+		int _CursorPosition;
 		float _StartX, _StartY;
 		int _CharacterSize;
 		sf::Color _TextColor;

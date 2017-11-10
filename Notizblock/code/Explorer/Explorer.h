@@ -12,6 +12,7 @@ class Explorer
 		void Close();
 
 		void Render();
+		void Update();
 		void OnTextEnteredEvent(char Input);
 
 		void Clear();

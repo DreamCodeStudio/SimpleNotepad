@@ -37,6 +37,16 @@ void Explorer::Render()
 	_Textbox.Render();
 }
 
+void Explorer::Update()
+{
+	if (_IsVisible == false)
+	{
+		return;
+	}
+
+	_Textbox.Update();
+}
+
 void Explorer::OnTextEnteredEvent(char Input)
 {
 	_Textbox.OnTextEntered(Input);
